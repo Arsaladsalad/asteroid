@@ -1,13 +1,23 @@
 import pygame
 from sys import exit
 
+### functions
 
+def display_score():
+    global counter
+    font_surface = font.render(f"Score: {counter}", False, "Red")
+    font_rect = font_surface.get_rect(center = (350, 50))
+    screen.blit(font_surface, font_rect)
+
+def collisions(player, asteriod):
+    return 0
 
 ### global variables
 pygame.init()
 screen = pygame.display.set_mode((736,368))
 clock = pygame.time.Clock()
 font = pygame.font.Font("font/Pixeltype.ttf", 50)
+counter = 0
 
 
 ### player
@@ -36,7 +46,7 @@ while True:
     screen.blit(background, (0,0))
     screen.blit(player, player_rect)
     screen.blit(asteroid, asteroid_rect)
-    screen.blit(font_surface, font_rect)
+    score = display_score()
 
     pygame.display.update()
     clock.tick(60)
