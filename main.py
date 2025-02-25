@@ -57,6 +57,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print("mouse down")
     if game_active:
         screen.blit(background, (0,0))
         screen.blit(player, player_rect)
@@ -64,11 +67,14 @@ while True:
         score = display_score()
 
         mouse_pos = pygame.mouse.get_pos()
-        if player_rect.collidepoint(mouse_pos) and pygame.mouse.get_pressed() == (True, False, False):
+        if player_rect.collidepoint(mouse_pos) and event.type == pygame.MOUSEBUTTONUP:
             counter += 1
+            player_rect.x = 800
             
 
     else:
+
+        ### start and game over screen
         screen.blit(background, (0,0))
         screen.blit(start_surface, start_rect)
         screen.blit(title_asteroid, title_asteroid_rect_2)
