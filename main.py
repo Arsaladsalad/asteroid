@@ -20,7 +20,7 @@ pygame.display.set_caption("Asteroid destroyer")
 font = pygame.font.Font("font/Pixeltype.ttf", 50)
 counter = 0
 keys = pygame.key.get_pressed()
-game_active = True
+game_active = False
 
 
 ### player
@@ -32,18 +32,18 @@ player_rect = player.get_rect(midbottom = (100, 368))
 background = pygame.image.load("graphics/night sky.jfif").convert_alpha()
 font_surface = font.render("Score: ", False, "Red")
 font_rect = font_surface.get_rect(center = (350, 50))
-start_surface = font.render("Shoot all the asteroids before they hit you", False, "Green")
+start_surface = font.render("Shoot all the asteroids before they hit you", False, "Orange")
 start_rect = start_surface.get_rect(center = (360, 350))
-title_surface = font.render("ASTEROID DESTROYER", False, "Green")
+title_surface = font.render("ASTEROID DESTROYER", False, "Orange")
 title_rect = title_surface.get_rect(center = (350, 50))
 title_asteroid = pygame.image.load("graphics/asteroid_title.png").convert_alpha()
 title_asteroid = pygame.transform.rotozoom(title_asteroid, 340, 0.25)
 title_asteroid_rect = title_asteroid.get_rect(center = (600, 150))
 title_asteroid_rect_2 = title_asteroid.get_rect(center = (500, 100))
 title_player_rect = player.get_rect(midbottom = (100, 320))
-play_surface = font.render("Place space to play", False, "Green")
+play_surface = font.render("Place space to play", False, "Orange")
 play_surface = pygame.transform.rotozoom(play_surface, 0, 0.8)
-play_rect = play_surface.get_rect(center = (360, 310))
+play_rect = play_surface.get_rect(center = (360, 320))
 
 
 
