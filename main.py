@@ -19,6 +19,7 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("Asteroid destroyer")
 font = pygame.font.Font("font/Pixeltype.ttf", 50)
 counter = 0
+keys = pygame.key.get_pressed()
 game_active = True
 
 
@@ -50,6 +51,9 @@ play_rect = play_surface.get_rect(center = (360, 310))
 asteroid = pygame.image.load("graphics/asteroid.png").convert_alpha()
 asteroid = pygame.transform.rotozoom(asteroid, 0, 0.25)
 asteroid_rect = asteroid.get_rect(center = (600, 100))
+asteroid_2 = pygame.image.load("graphics/asteroid.png").convert_alpha()
+asteroid_2 = pygame.transform.rotozoom(asteroid_2, 0, 0.1)
+asteroid_rect_2 = asteroid.get_rect(center = (600, 300))
 
 
 while True:
@@ -58,19 +62,45 @@ while True:
             pygame.quit()
             exit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print("mouse down")
+    
+        if game_active:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                game_active = True
+
+
+            ### collisions
+            mouse_pos = pygame.mouse.get_pos()
+            if asteroid_rect.collidepoint(mouse_pos) and event.type == pygame.MOUSEBUTTONUP:
+                counter += 1
+                asteroid_rect.x = 900
+            elif asteroid_rect_2.collidepoint(mouse_pos) and event.type == pygame.MOUSEBUTTONUP:
+                counter += 1
+                asteroid_rect_2.x = 900
+        else:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                asteroid_rect.x = 900
+                asteroid_rect_2.x = 900
+                counter = 0
+                game_active = True
+
+
+
     if game_active:
         screen.blit(background, (0,0))
         screen.blit(player, player_rect)
-        screen.blit(asteroid, asteroid_rect)
+ 
         score = display_score()
 
-        mouse_pos = pygame.mouse.get_pos()
-        if player_rect.collidepoint(mouse_pos) and event.type == pygame.MOUSEBUTTONUP:
-            counter += 1
-            player_rect.x = 800
-            
+        asteroid_rect.x -= 5
+        if asteroid_rect.x <= 0:
+            game_active = False
+        screen.blit(asteroid, asteroid_rect)
+
+        asteroid_rect_2.x -= 4
+        if asteroid_rect_2.x <= 0:
+            game_active = False
+        screen.blit(asteroid_2, asteroid_rect_2)
+
 
     else:
 
@@ -82,6 +112,7 @@ while True:
         screen.blit(title_asteroid, title_asteroid_rect)
         screen.blit(player, title_player_rect)
         screen.blit(play_surface, play_rect)
+
         
 
 
